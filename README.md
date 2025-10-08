@@ -5,14 +5,14 @@ A Spring Boot backend application.
 ## Prerequisites
 
 - Java 17 or higher
-- Maven 3.6 or higher
+- Gradle 8.5 or higher (or use the included Gradle wrapper)
 
 ## Running the Application
 
-### Using Maven
+### Using Gradle
 
 ```bash
-mvn spring-boot:run
+./gradlew bootRun
 ```
 
 The application will start on `http://localhost:8080`
@@ -20,13 +20,13 @@ The application will start on `http://localhost:8080`
 ### Building the Application
 
 ```bash
-mvn clean package
+./gradlew clean build
 ```
 
 ### Running the JAR
 
 ```bash
-java -jar target/lft-backend-1.0.0.jar
+java -jar build/libs/lft-backend-1.0.0.jar
 ```
 
 ## Endpoints
@@ -47,5 +47,5 @@ Connection details:
 Run tests with:
 
 ```bash
-mvn test
+./gradlew test
 ```

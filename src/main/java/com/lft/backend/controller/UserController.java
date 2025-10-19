@@ -24,7 +24,7 @@ public class UserController {
             @Positive(message = "ID must be a positive number")
             Long id
     ) {
-        LocalDate localDate = LocalDate.of(2025,11,11);
+        LocalDate localDate = LocalDate.now().minusYears(20);
 
 //        TODO: change to provide real data
         User user = new UserDto("Jmeno", "Prijmeni", localDate, "testovaci user", Sex.MALE).toEntity();

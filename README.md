@@ -1,11 +1,12 @@
 # LFT Backend
 
-A NestJS backend application.
+A NestJS backend application using Prisma ORM.
 
 ## Prerequisites
 
 - Node.js 18 or higher
 - npm 9 or higher
+- PostgreSQL database
 
 ## Running the Application
 
@@ -13,6 +14,22 @@ A NestJS backend application.
 
 ```bash
 npm install
+```
+
+### Database Setup
+
+1. Copy `.env.example` to `.env` and configure your database URL:
+
+```bash
+cp .env.example .env
+```
+
+2. Update the `DATABASE_URL` in `.env` with your PostgreSQL connection string.
+
+3. Run database migrations:
+
+```bash
+npm run prisma:migrate
 ```
 
 ### Development Mode
@@ -30,13 +47,34 @@ npm run build
 npm run start:prod
 ```
 
+## Prisma Commands
+
+- `npm run prisma:generate` - Generate Prisma client
+- `npm run prisma:migrate` - Run database migrations in development
+- `npm run prisma:migrate:deploy` - Deploy migrations in production
+- `npm run prisma:studio` - Open Prisma Studio to view/edit data
+
 ## Endpoints
 
 - `GET /user/:id` - Returns user data
+- `GET /user` - Returns all users
+- `POST /user` - Create a new user
+- `PATCH /user/:id` - Update a user
+- `DELETE /user/:id` - Delete a user
 
-## SQLite Database
+## Docker
 
-The application uses SQLite (via better-sqlite3) for data storage. The database file is created automatically at `./data/lftdb.sqlite` when the application starts.
+Start the PostgreSQL database:
+
+```bash
+npm run dev:db
+```
+
+Or run the full stack with Docker Compose:
+
+```bash
+npm run docker:up
+```
 
 ## Testing
 

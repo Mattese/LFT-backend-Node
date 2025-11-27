@@ -11,7 +11,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { UserService } from './services/user.service';
-import { User } from './entities/user.entity';
+import { User } from '@prisma/client';
 import { CreateUserDto } from './dto/user.dto';
 
 @Controller('user')

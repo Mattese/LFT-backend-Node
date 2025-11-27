@@ -1,51 +1,53 @@
 # LFT Backend
 
-A Spring Boot backend application.
+A NestJS backend application.
 
 ## Prerequisites
 
-- Java 17 or higher
-- Gradle 8.5 or higher (or use the included Gradle wrapper)
+- Node.js 18 or higher
+- npm 9 or higher
 
 ## Running the Application
 
-### Using Gradle
+### Install Dependencies
 
 ```bash
-./gradlew bootRun
+npm install
+```
+
+### Development Mode
+
+```bash
+npm run start:dev
 ```
 
 The application will start on `http://localhost:8080`
 
-### Building the Application
+### Production Mode
 
 ```bash
-./gradlew clean build
-```
-
-### Running the JAR
-
-```bash
-java -jar build/libs/lft-backend-1.0.0.jar
+npm run build
+npm run start:prod
 ```
 
 ## Endpoints
 
-- `GET /user` - Returns "User"
+- `GET /user/:id` - Returns user data
 
-## H2 Database Console
+## SQLite Database
 
-The H2 database console is available at `http://localhost:8080/h2-console` when the application is running.
-
-Connection details:
-- JDBC URL: `jdbc:h2:file:./data/lftdb`
-- Username: `sa`
-- Password: (leave empty)
+The application uses SQLite (via better-sqlite3) for data storage. The database file is created automatically at `./data/lftdb.sqlite` when the application starts.
 
 ## Testing
 
 Run tests with:
 
 ```bash
-./gradlew test
+npm run test
+```
+
+Run e2e tests with:
+
+```bash
+npm run test:e2e
 ```

@@ -39,15 +39,19 @@ export class UserService {
     return this.prisma.user.update({
       where: { id },
       data: {
-        ...(updateData.firstName && { firstName: updateData.firstName }),
-        ...(updateData.lastName && { lastName: updateData.lastName }),
-        ...(updateData.dateOfBirth && {
+        ...(updateData.firstName !== undefined && {
+          firstName: updateData.firstName,
+        }),
+        ...(updateData.lastName !== undefined && {
+          lastName: updateData.lastName,
+        }),
+        ...(updateData.dateOfBirth !== undefined && {
           dateOfBirth: new Date(updateData.dateOfBirth),
         }),
         ...(updateData.nickName !== undefined && {
           nickName: updateData.nickName ?? null,
         }),
-        ...(updateData.sex && { sex: updateData.sex }),
+        ...(updateData.sex !== undefined && { sex: updateData.sex }),
       },
     });
   }

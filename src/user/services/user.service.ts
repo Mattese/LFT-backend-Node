@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDto } from '../dto/user.dto';
-import { User } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -60,8 +60,15 @@ export class UserService {
     try {
       await this.prisma.user.delete({ where: { id } });
       return true;
-    } catch {
-      return false;
+    } catch (error) {
+      // P2025 is Prisma's error code for "Record to delete does not exist"
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        return false;
+      }
+      throw error;
     }
   }
 }

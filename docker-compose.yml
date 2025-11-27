@@ -5,9 +5,9 @@ services:
     image: postgres:16-alpine
     container_name: lft-postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:-lftuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lftpassword}
+      POSTGRES_DB: ${POSTGRES_DB:-lftdb}
     ports:
       - "5432:5432"
     volumes:
@@ -24,11 +24,7 @@ services:
       dockerfile: Dockerfile
     container_name: lft-app
     environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-lftuser}:${POSTGRES_PASSWORD:-lftpassword}@postgres:5432/${POSTGRES_DB:-lftdb}?schema=public
     ports:
       - "3000:3000"
     depends_on:

@@ -1,4 +1,4 @@
-import { Sex } from './enums/sex.enum';
+import { Sex } from '@prisma/client';
 
 export interface UserInterface {
   id: number;

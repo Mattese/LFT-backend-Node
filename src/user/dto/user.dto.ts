@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsEnum,
 } from 'class-validator';
-import { Sex } from '../enums/sex.enum';
+import { Sex } from '@prisma/client';
 
 export class CreateUserDto {
   @IsString({ message: 'First name must be a string' })

@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrismaModule } from './prisma';
 import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -12,20 +11,7 @@ import { User } from './user/entities/user.entity';
       envFilePath: '.env.local',
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('POSTGRES_HOST', 'localhost'),
-        port: configService.get('POSTGRES_PORT', 5432),
-        username: configService.get('POSTGRES_USER', 'lftuser'),
-        password: configService.get('POSTGRES_PASSWORD', 'lftpassword'),
-        database: configService.get('POSTGRES_DB', 'lftdb'),
-        entities: [User],
-        synchronize: true, // disable in production!
-      }),
-    }),
+    PrismaModule,
     UserModule,
   ],
   controllers: [AppController],

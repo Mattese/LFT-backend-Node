@@ -16,6 +16,10 @@ async function bootstrap() {
 
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  await app.listen(process.env.PORT ?? 8080);
+  const port = process.env.PORT ?? 8080;
+  await app.listen(port);
+
+  console.log(`\n🚀 Server is running on: http://localhost:${port}`);
+  console.log(`📊 Health check: http://localhost:${port}/health\n`);
 }
 void bootstrap();

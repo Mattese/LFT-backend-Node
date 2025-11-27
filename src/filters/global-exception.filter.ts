@@ -14,7 +14,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    const status =
+    const status: number =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
@@ -22,10 +22,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const errorResponse = {
       timestamp: new Date().toISOString(),
       status: status,
-      error:
-        status === (HttpStatus.INTERNAL_SERVER_ERROR as number)
-          ? 'Internal Server Error'
-          : 'Error',
+      error: status === 500 ? 'Internal Server Error' : 'Error',
       message: 'An unexpected error occurred',
     };
 

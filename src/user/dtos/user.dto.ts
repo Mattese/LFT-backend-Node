@@ -40,13 +40,13 @@ export class UserDto {
     firstName: string,
     lastName: string,
     dateOfBirth: string,
-    nickName: string | undefined,
+    nickName: string | null | undefined,
     sex: Sex,
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
-    this.nickName = nickName;
+    this.nickName = nickName ?? undefined;
     this.sex = sex;
   }
 
@@ -63,7 +63,7 @@ export class UserDto {
       user.firstName,
       user.lastName,
       dateOfBirth,
-      user.nickName ?? undefined,
+      user.nickName,
       user.sex,
     );
   }

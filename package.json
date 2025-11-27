@@ -16,8 +16,10 @@
     "docker:logs:db": "docker-compose logs -f postgres",
     "docker:restart": "docker-compose restart app",
     "dev:db": "docker-compose up -d postgres",
+    "dev:studio": "prisma studio",
     "start": "nest start",
     "start:dev": "npm run dev:db && nest start --watch",
+    "start:dev:studio": "npm run dev:db && concurrently -n \"NestJS,Prisma\" -c \"blue,magenta\" \"WITH_STUDIO=true nest start --watch\" \"prisma studio\"",
     "start:debug": "npm run dev:db && nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -37,11 +39,13 @@
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.3",
     "@prisma/client": "^5.22.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -53,6 +57,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
+    "concurrently": "^9.2.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",

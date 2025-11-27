@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,11 +8,23 @@ import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
-      database: './data/lftdb.sqlite',
-      entities: [User],
-      synchronize: true,
+    ConfigModule.forRoot({
+      envFilePath: '.env.local',
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('POSTGRES_HOST', 'localhost'),
+        port: configService.get('POSTGRES_PORT', 5432),
+        username: configService.get('POSTGRES_USER', 'lftuser'),
+        password: configService.get('POSTGRES_PASSWORD', 'lftpassword'),
+        database: configService.get('POSTGRES_DB', 'lftdb'),
+        entities: [User],
+        synchronize: true, // disable in production!
+      }),
     }),
     UserModule,
   ],

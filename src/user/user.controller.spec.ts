@@ -22,11 +22,11 @@ describe('UserController', () => {
       const result = controller.getById(1);
 
       expect(result).toBeDefined();
-      expect(result.firstName).toBe('Jmeno');
-      expect(result.lastName).toBe('Prijmeni');
-      expect(result.nickName).toBe('testovaci user');
-      expect(result.sex).toBe(Sex.MALE);
-      expect(result.dateOfBirth).toBeDefined();
+      expect(result?.firstName).toBe('Jmeno');
+      expect(result?.lastName).toBe('Prijmeni');
+      expect(result?.nickName).toBe('testovaci user');
+      expect(result?.sex).toBe(Sex.MALE);
+      expect(result?.dateOfBirth).toBeDefined();
     });
   });
 });

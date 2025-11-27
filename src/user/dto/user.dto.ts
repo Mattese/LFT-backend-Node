@@ -24,7 +24,9 @@ export class CreateUserDto {
   @IsOptional()
   nickName?: string;
 
-  @IsEnum(Sex, { message: 'Sex must be one of: ' + Object.values(Sex).join(', ') })
+  @IsEnum(Sex, {
+    message: 'Sex must be one of: ' + Object.values(Sex).join(', '),
+  })
   @IsNotEmpty({ message: 'Sex is required' })
   sex: Sex;
 }

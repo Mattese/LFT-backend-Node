@@ -8,7 +8,10 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.local',
+      // prefer explicit process.env values in CI (CI=true) so workflow-provided env vars win
+      // fall back to local files for developer convenience
+      envFilePath: ['.env.local', '.env'],
+      ignoreEnvFile: !!process.env.CI,
       isGlobal: true,
     }),
     PrismaModule,

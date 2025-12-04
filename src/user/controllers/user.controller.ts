@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Delete,
   Patch,
@@ -50,21 +49,21 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID' })
-  @ApiParam({ name: 'id', description: 'User ID', type: Number })
+  @ApiParam({ name: 'id', description: 'User ID', type: String })
   @ApiResponse({ status: 200, description: 'User found' })
   @ApiResponse({ status: 404, description: 'User not found' })
-  async findById(@Param('id', ParseIntPipe) id: number): Promise<User | null> {
+  async findById(@Param('id') id: string): Promise<User | null> {
     return this.usersService.findById(id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update user by ID' })
-  @ApiParam({ name: 'id', description: 'User ID', type: Number })
+  @ApiParam({ name: 'id', description: 'User ID', type: String })
   @ApiBody({ type: CreateUserDto })
   @ApiResponse({ status: 200, description: 'User updated' })
   @ApiResponse({ status: 404, description: 'User not found' })
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() updateData: Partial<CreateUserDto>,
   ): Promise<User | null> {
     return this.usersService.update(id, updateData);
@@ -73,10 +72,10 @@ export class UserController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete user by ID' })
-  @ApiParam({ name: 'id', description: 'User ID', type: Number })
+  @ApiParam({ name: 'id', description: 'User ID', type: String })
   @ApiResponse({ status: 204, description: 'User deleted successfully' })
   @ApiResponse({ status: 404, description: 'User not found' })
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  async delete(@Param('id') id: string): Promise<void> {
     await this.usersService.delete(id);
   }
 }

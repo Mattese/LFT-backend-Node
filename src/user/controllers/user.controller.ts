@@ -9,16 +9,16 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiBody,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiBody } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { CreateUserDto } from '../dto/user.dto';
 import { UserService } from '../services/user.service';
+import {
+  ApiCommonResponses,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiNoContentResponse,
+} from '../../common/decorators/api-responses.decorator';
 
 @ApiTags('user')
 @Controller('user')
@@ -28,21 +28,16 @@ export class UserController {
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
   @ApiBody({ type: CreateUserDto })
-  @ApiResponse({
-    status: 201,
-    description: 'User successfully created',
-  })
-  @ApiResponse({ status: 400, description: 'Bad request - validation failed' })
+  @ApiCreatedResponse('User successfully created')
+  @ApiCommonResponses()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
   @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({
-    status: 200,
-    description: 'List of all users',
-  })
+  @ApiOkResponse('List of all users')
+  @ApiCommonResponses()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
@@ -50,8 +45,8 @@ export class UserController {
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiParam({ name: 'id', description: 'User ID', type: String })
-  @ApiResponse({ status: 200, description: 'User found' })
-  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiOkResponse('User found')
+  @ApiCommonResponses()
   async findById(@Param('id') id: string): Promise<User | null> {
     return this.usersService.findById(id);
   }
@@ -60,8 +55,8 @@ export class UserController {
   @ApiOperation({ summary: 'Update user by ID' })
   @ApiParam({ name: 'id', description: 'User ID', type: String })
   @ApiBody({ type: CreateUserDto })
-  @ApiResponse({ status: 200, description: 'User updated' })
-  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiOkResponse('User updated')
+  @ApiCommonResponses()
   async update(
     @Param('id') id: string,
     @Body() updateData: Partial<CreateUserDto>,
@@ -73,8 +68,8 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete user by ID' })
   @ApiParam({ name: 'id', description: 'User ID', type: String })
-  @ApiResponse({ status: 204, description: 'User deleted successfully' })
-  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiNoContentResponse('User deleted successfully')
+  @ApiCommonResponses()
   async delete(@Param('id') id: string): Promise<void> {
     await this.usersService.delete(id);
   }

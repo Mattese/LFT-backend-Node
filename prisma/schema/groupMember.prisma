@@ -1,0 +1,38 @@
+model GroupMember {
+    userId String @db.VarChar(25)
+    groupId String @db.VarChar(25)
+    role      MembershipRole          @default(MEMBER)
+    joinedAt  DateTime      @default(now()) @db.Timestamp(6)
+    status    MembershipStatus        @default(PENDING)
+    visibility MembershipVisibility   @default(VISIBLE)
+    invitationStatus MembershipInvitationStatus @default(NONE)
+    user User @relation(fields: [userId], references: [id])
+    group Group @relation(fields: [groupId], references: [id])
+
+    @@id([userId, groupId])
+    @@map("group_memberships")
+}
+
+enum MembershipRole {
+    OWNER
+    ADMIN
+    MEMBER
+}
+
+enum MembershipStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
+}
+
+enum MembershipVisibility {
+    VISIBLE
+    HIDDEN
+}
+
+enum MembershipInvitationStatus {
+    NONE
+    SENT
+    ACCEPTED
+    DECLINED
+}

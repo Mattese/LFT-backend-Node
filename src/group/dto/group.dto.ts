@@ -15,7 +15,7 @@ export class CreateGroupDto {
 
   @ApiPropertyOptional({
     description: 'Group description',
-    example: 'This is description about group',
+    example: 'This is a description about the group',
   })
   @IsString({ message: 'Description must be a string' })
   @IsOptional({

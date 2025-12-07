@@ -10,11 +10,11 @@ type UserId = Prisma.UserGetPayload<{ select: { id: true } }>['id'];
 export class GroupService {
   constructor(private prisma: PrismaService) {}
 
-  async findAllGroups() {
+  async findAllGroups(): Promise<Group[]> {
     return this.prisma.group.findMany();
   }
 
-  async findGroupById(id: string) {
+  async findGroupById(id: string): Promise<Group | null> {
     return this.prisma.group.findUnique({ where: { id } });
   }
 

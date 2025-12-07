@@ -63,7 +63,9 @@ export class CreateGroupDto {
     enum: MembershipApprovalType,
     example: MembershipApprovalType.MANUAL,
   })
-  @IsEnum(MembershipApprovalType, {})
+  @IsEnum(MembershipApprovalType, {
+    message: 'Membership approval type must be one of: ' + Object.values(MembershipApprovalType).join(', '),
+  })
   @IsNotEmpty({ message: 'Membership approval type is required' })
   membershipApproval: MembershipApprovalType;
 }

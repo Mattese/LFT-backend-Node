@@ -23,6 +23,8 @@ export class UserService {
         dateOfBirth: new Date(createUserDto.dateOfBirth),
         nickName: createUserDto.nickName ?? null,
         sex: createUserDto.sex,
+        password: createUserDto.password,
+        email: createUserDto.email,
       },
     });
   }

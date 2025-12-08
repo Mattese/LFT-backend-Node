@@ -9,14 +9,20 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Sex } from '@prisma/client';
 
 export class CreateUserDto {
-  @ApiProperty({ description: 'First name of the user', example: 'John' })
+  @ApiPropertyOptional({
+    description: 'First name of the user',
+    example: 'John',
+  })
   @IsString({ message: 'First name must be a string' })
-  @IsNotEmpty({ message: 'First name is required' })
+  @IsOptional()
   firstName: string;
 
-  @ApiProperty({ description: 'Last name of the user', example: 'Doe' })
+  @ApiPropertyOptional({
+    description: 'Last name of the user',
+    example: 'Doe',
+  })
   @IsString({ message: 'Last name must be a string' })
-  @IsNotEmpty({ message: 'Last name is required' })
+  @IsOptional()
   lastName: string;
 
   @ApiProperty({
@@ -45,4 +51,12 @@ export class CreateUserDto {
   })
   @IsNotEmpty({ message: 'Sex is required' })
   sex: Sex;
+
+  @ApiProperty({
+    description: 'Email address of the user',
+    example: 'john.doe@example.com',
+  })
+  @IsString({ message: 'Email must be a string' })
+  @IsNotEmpty({ message: 'Email is required' })
+  email: string;
 }

@@ -4,17 +4,17 @@ enum Sex {
 }
 
 model User {
-  id          String    @id @default(cuid()) @db.VarChar(25)
-  firstName   String?    @db.VarChar(50)
-  lastName    String?    @db.VarChar(50)
-  dateOfBirth DateTime  @db.Date
-  nickName    String?   @db.VarChar(30)
+  id          String        @id @default(cuid()) @db.VarChar(25)
+  firstName   String?       @db.VarChar(50)
+  lastName    String?       @db.VarChar(50)
+  dateOfBirth DateTime      @db.Date
+  nickName    String?       @db.VarChar(30)
   sex         Sex
-  email       String    @unique @db.VarChar(100)
-  createdAt   DateTime  @default(now()) @db.Timestamp(6)
-  updatedAt   DateTime  @updatedAt @db.Timestamp(6)
-  memberships GroupMember[]
-  password    String 
+  email       String        @unique @db.VarChar(100)
+  password    String        @db.VarChar(60)
+  createdAt   DateTime      @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime      @updatedAt @db.Timestamp(6)
+  GroupMember GroupMember[]
 
   @@map("users")
 }

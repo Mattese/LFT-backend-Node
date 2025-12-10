@@ -1,34 +1,34 @@
 model Group {
-    id          String        @id @default(cuid()) @db.VarChar(25)
-    name        String        @db.VarChar(100)
-    description String?       @db.VarChar(255)
-    createdAt   DateTime      @default(now()) @db.Timestamp(6)
-    updatedAt   DateTime      @updatedAt @db.Timestamp(6)
-    memberships GroupMember[]
-    type        GroupType     @default(PRIVATE)
-    status      GroupStatus   @default(ACTIVE)
-    visibility  GroupVisibility @default(VISIBLE)
-    membershipApproval MembershipApprovalType @default(MANUAL)
+  id                 String                 @id @default(cuid()) @db.VarChar(25)
+  name               String                 @db.VarChar(100)
+  description        String?                @db.VarChar(255)
+  createdAt          DateTime               @default(now()) @db.Timestamp(6)
+  updatedAt          DateTime               @updatedAt @db.Timestamp(6)
+  memberships        GroupMember[]
+  type               GroupType              @default(PRIVATE)
+  status             GroupStatus            @default(ACTIVE)
+  visibility         GroupVisibility        @default(VISIBLE)
+  membershipApproval MembershipApprovalType @default(MANUAL)
 
-    @@map("groups")
+  @@map("groups")
 }
 
 enum GroupType {
-    PUBLIC
-    PRIVATE
+  PUBLIC
+  PRIVATE
 }
 
 enum GroupStatus {
-    ACTIVE
-    INACTIVE
+  ACTIVE
+  INACTIVE
 }
 
 enum GroupVisibility {
-    VISIBLE
-    HIDDEN
+  VISIBLE
+  HIDDEN
 }
 
 enum MembershipApprovalType {
-    AUTOMATIC
-    MANUAL
+  AUTOMATIC
+  MANUAL
 }

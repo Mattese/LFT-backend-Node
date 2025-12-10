@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   Param,
-  Post,
   Delete,
   Patch,
   HttpCode,
@@ -15,7 +14,6 @@ import { CreateUserDto } from '../dto/user.dto';
 import { UserService } from '../services/user.service';
 import {
   ApiCommonResponses,
-  ApiCreatedResponse,
   ApiOkResponse,
   ApiNoContentResponse,
 } from '../../common/decorators/api-responses.decorator';
@@ -24,15 +22,6 @@ import {
 @Controller('user')
 export class UserController {
   constructor(private usersService: UserService) {}
-
-  @Post()
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiBody({ type: CreateUserDto })
-  @ApiCreatedResponse('User successfully created')
-  @ApiCommonResponses()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
-  }
 
   @Get()
   @ApiOperation({ summary: 'Get all users' })
